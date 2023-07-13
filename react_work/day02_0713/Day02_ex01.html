@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+    <body>
+        <h1>리액트 CDN 사용하기</h1>
+
+        <div id="mybox"></div>
+
+        <script type="text/babel">
+            // DOM == Document Object Model (문서 객체 모델)
+            // 객체 == 기능 + 속성
+            var mybox = document.getElementById("mybox");
+            var name = "홍길동"; // = 대입한다(넣는다, 담는다)
+
+            console.log(name);
+            console.log("비트교육센터");
+            console.log(365);
+
+            console.dir(mybox);
+            mybox.innerHTML = "<h2>hello world!</h2>";
+            mybox.style.backgroundColor = "green";
+            mybox.style.color = "yellow";
+        </script>
+        
+    </body>
+</html>

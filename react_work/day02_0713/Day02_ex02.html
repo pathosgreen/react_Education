@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+    <body>
+        <h1>리액트 CDN 사용하기</h1>
+
+        <div id="mybox"></div>
+
+        <script type="text/babel">
+            // 컴포넌트 선언 : class 또는 function으로 선언 가능
+            // React.js에서 컴포넌트의 최상위 태그는 오직 하나만 있어야 한다.
+            // CRA - 리액트 프로젝트를 생성해주는 명령
+            // npx create-react-app 프로젝트명
+            // node.js + 웹팩 기술로 만들어진 프로젝트가 자동으로 구성된다.
+            // node.js를 pc에 먼저 설치해야 가능하다.
+            function Hello(){
+                return (
+                    <div>
+                        <h1>Hello</h1>
+                        <h2>Welcome</h2>
+                    </div>
+                );
+            };
+
+            var mybox = document.getElementById("mybox");
+            var root = ReactDOM.createRoot(mybox);
+
+            // JSX = 문자열이 아닌 XML 문법
+            // XML은 닫는 element(종료태그)가 꼭 있어야 한다.
+            root.render(<Hello />);
+            
+        </script>
+        
+    </body>
+</html>
