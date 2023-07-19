@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>class를 이용한 객체 생성</h1>
+
+    <script>
+        // class 키워드를 이용한 클래스 선언
+        // ES6부터 추가된 문법
+        // constructor(생성자), static, extends(상속)같은 개념이 추가되었다.
+        class People {
+            constructor(name,age) {
+                this.name = name;
+                this.age = age;
+            }
+            showInfo() {
+                console.log(`${this.name}님의 나이는 ${this.age}세 입니다.`);
+            }
+        }
+
+        // var 대신 let으로 변수 선언
+        let person01 = new People('One', 28);
+        person01.showInfo();
+
+        class Superman extends People {
+            constructor(name,age) {
+                // 주의 : 생성자에서는 부모의 생성자를 호출해야한다.
+                // 부모 생성자는 super()를 이용한다.
+                super(name,age);
+            }
+
+            fly() {
+                // 부모의 멤더를 호출할 경우 명시적으로 super를 붙인다.
+                super.showInfo();
+                console.log(`${this.name}님이 날아간다.`);
+            }
+        }
+        let person02 = new Superman("클라크",29);
+        person02.fly();
+    </script>
+</body>
+</html>

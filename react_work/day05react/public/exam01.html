@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Example 01 페이지</h1>
+    <script type="text/javascript">
+        // script의 type속성의 기본 값은 text/javascript
+
+        // function과 prototype 속성을 이용한 객체 생성
+        // javascript에는 Object라는 객체가 존재한다.
+
+        var obj01 = new Object();
+        obj01.name = "홍길동";
+        obj01.age = 25;
+        console.dir(obj01);
+
+        // 배열 : [] 객체 : {}
+        var obj02 = {name:"이순신",age:16};
+        console.dir(obj02);
+
+        var objList = [obj01,obj02,{"name":"강감찬","age":56}];
+        console.log(objList);
+
+        // 객체를 JSON 문자열로 변환
+        var objListJSON = JSON.stringify(objList);
+        console.log(objListJSON);
+
+        // JSON 문자열을 다시 객체로 변환
+        var newObjList = JSON.parse(objListJSON);
+        console.log(newObjList);
+    </script>
+</body>
+</html>
