@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>The XMLHttpRequest Object</h2>
+    <button type="button" onclick="loadDoc()">Change Content</button><br>
+    검색 : <input type="text" id="search" /><br/>
+<table id="demo" border="1">
+    
+</table>
+<address>강남구 신사동</address>
+
+<script>
+
+var objArr = null;
+
+function mkRow(arr) {
+    var rows = "";
+    arr.forEach((element, i) => {
+        rows += `<tr>
+            <td>${element.id}</td><td>${element.username}</td><td>${element.email}</td>
+            </tr>`;
+        console.log(element.id, element.username, element.email)
+    });
+    document.getElementById("demo").innerHTML = rows;
+}
+function loadDoc() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    objArr = JSON.parse(xhttp.responseText);
+    mkRow(objArr);
+    document.getElementById("demo").innerHTML = rows;
+  }
+  xhttp.open("GET", "https://jsonplaceholder.typicode.com/users");
+  xhttp.send();
+}
+var search = document.getElementById("search");
+search.onkeyup = function(e) {
+    console.log(e.target.value);
+    // e.target.value가 포함된 행을 뽑아서 새 배열 만든다.
+    // mkRow() 호출 할때 배열 사용.
+    if(objArr != null) {
+        var newArr = objArr.filter(function(item, idx) {
+            return item.username.indexOf(e.target.value) != -1;
+        });
+        mkRow(newArr)
+    } else {
+        alert("표가 비었다!");
+        loadDoc();
+        search.value = "";
+    }
+}
+
+
+</script>
+
+</body>
+</html>
