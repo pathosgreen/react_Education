@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <script src="./bootstrap/jquery.slim.min.js"></script>
+    <script src="./bootstrap/popper.min.js"></script>
+    <script src="./bootstrap/bootstrap.bundle.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script defer src="/__/firebase/8.9.1/firebase-app.js"></script>
+    <script defer src="/__/firebase/8.9.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.9.1/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/8.9.1/firebase-storage.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+  </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1>중고차 쇼핑몰</h1>      
+        <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
+      </div>
+    </div>
+    <div class="container">
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+      </nav>
+      <hr />
+      <div><h3>새로 등록 된 매물 정보</h3></div>
+      <hr />  
+      <fieldset>
+        <legend>새 정보 입력</legend>
+        <form action="#" id="carForm">
+        <table>
+          <tr>
+            <th>차종</th>
+            <th>제조사</th>
+            <th>연식</th>
+            <th>가격</th>
+            <th>저장</th>
+          </tr>
+          <tr>
+            <td><input type="text" value="S80" name="name"/></td>
+            <td><input type="text" value="VOLVO" name="company"/></td>
+            <td><input type="text" value="2019" name="year"/></td>
+            <td><input type="text" value="6500" name="price"/></td>
+            <td><input type="submit" value="추가"></td>
+          </tr>
+        </table>
+      </form>
+      </fieldset>
+      <hr />
+      <table id="carListTbl" class="table">
+        <thead>
+          <th>아이디</th>
+          <th>차종</th>
+          <th>제조사</th>
+          <th>연식</th>
+          <th>가격</th>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+      <p>구글 파이어베이스를 활용한 싱글페이지 어플리케이션 구현</p>
+    </div>
+    
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        try {
+          const app = firebase.app();
+          const db = firebase.firestore();
+          const storage = firebase.storage();
+          //console.log(app);
+          //console.log(db);
+          //console.log(storage);
+
+          var carList = [];
+
+          function mkTable() {
+            db.collection("car").get().then((querySnapshot) => {
+              carList = [];
+              $('#carListTbl tbody').html("");
+              querySnapshot.forEach((doc) => {
+                  var car = doc.data();
+                  car.id = doc.id;
+                  carList.push(car);
+
+                  $('#carListTbl tbody').append(`<tr>
+                    <td>${car.id}</td>
+                    <td>${car.name}</td>
+                    <td>${car.company}</td>
+                    <td>${car.year}</td>
+                    <td>${car.price}</td>
+                  </tr>`);
+              });
+
+              $("#carForm").submit(function(evt) {
+                evt.preventDefault();
+                let carData = {
+                  name: this.name.value,
+                  company: this.company.value,
+                  year : this.year.value,
+                  price: this.price.value
+                }
+
+                // 입력된 정보를 db에 저장
+                //console.log(carData);
+                db.collection("car").add(carData).then((docRef) => {
+                  // 저장 후 테이블 리스트 갱신.
+                  mkTable()
+                }).catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+                
+              });
+            });
+          }
+
+          mkTable()
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+
+      var firebaseConfig = {
+        apiKey: "AIzaSyBJmXDMZcwi099M98XhdwvHKk-btqAWRW0",
+        authDomain: "bit2023react-3bfdc.firebaseapp.com",
+        projectId: "bit2023react-3bfdc",
+        storageBucket: "bit2023react-3bfdc.appspot.com",
+        messagingSenderId: "477495967960",
+        appId: "1:477495967960:web:6679063d4d0ce1707517ad",
+        measurementId: "G-11T57BE5BB"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+  </body>
+</html>
